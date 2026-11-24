@@ -150,6 +150,16 @@ pub fn get_all_agents() -> HashMap<&'static str, AgentConfig> {
     );
 
     agents.insert(
+        "pi",
+        AgentConfig {
+            name: "pi",
+            display_name: "Pi",
+            skills_dir: ".pi/skills",
+            global_skills_dir: home.join(".pi/agent/skills"),
+        },
+    );
+
+    agents.insert(
         "roo",
         AgentConfig {
             name: "roo",
@@ -200,6 +210,7 @@ pub fn detect_installed_agents() -> Vec<&'static str> {
         ("kilo", home.join(".kilocode")),
         ("kiro-cli", home.join(".kiro")),
         ("opencode", home.join(".config/opencode")),
+        ("pi", home.join(".pi/agent")),
         ("roo", home.join(".roo")),
         ("trae", home.join(".trae")),
         ("windsurf", home.join(".codeium/windsurf")),
@@ -229,8 +240,37 @@ pub fn get_agent_names() -> Vec<&'static str> {
         "kilo",
         "kiro-cli",
         "opencode",
+        "pi",
         "roo",
         "trae",
         "windsurf",
     ]
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn pi_installs_to_its_project_and_user_skill_dirs() {
+        let agents = get_all_agents();
+        let pi = agents.get("pi").expect("pi is a supported agent");
+
+        assert_eq!(pi.display_name, "Pi");
+        assert_eq!(pi.skills_dir, ".pi/skills");
+        assert_eq!(
+            pi.global_skills_dir,
+            get_home_dir().join(".pi/agent/skills")
+        );
+    }
+
+    #[test]
+    fn every_accepted_agent_name_has_a_config_and_vice_versa() {
+        let mut names = get_agent_names();
+        names.sort_unstable();
+        let mut configured: Vec<&str> = get_all_agents().into_keys().collect();
+        configured.sort_unstable();
+
+        assert_eq!(names, configured);
+    }
 }

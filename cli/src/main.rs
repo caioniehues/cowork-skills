@@ -178,7 +178,7 @@ enum Commands {
         /// Target specific agents (can be repeated)
         /// Available: amp, antigravity, claude-code, clawdbot, codex, cursor,
         /// droid, gemini-cli, github-copilot, goose, kilo, kiro-cli,
-        /// opencode, roo, trae, windsurf
+        /// opencode, pi, roo, trae, windsurf
         #[arg(short = 'a', long = "agent", value_name = "AGENT")]
         agents: Vec<String>,
 

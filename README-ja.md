@@ -235,6 +235,7 @@ cowork init --remove memory-skills
 | Goose | `-a goose` | Kilo | `-a kilo` |
 | Kiro CLI | `-a kiro-cli` | OpenCode | `-a opencode` |
 | Roo | `-a roo` | Trae | `-a trae` |
+| Pi | `-a pi` | | |
 
 ```bash
 # 複数のエージェントにインストール
